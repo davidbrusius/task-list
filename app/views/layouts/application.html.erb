@@ -19,6 +19,10 @@
   <body>
     <%= render 'shared/navbar' %>
 
-    <%= yield %>
+    <div class="container">
+      <%= flash_messages %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
