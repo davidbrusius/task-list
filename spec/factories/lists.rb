@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :list do
-    subject "MyString"
+    subject Faker::Lorem.word
     public_access false
   end
 end
