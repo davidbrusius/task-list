@@ -5,6 +5,7 @@ class ListsController < ApplicationController
   # GET /lists.json
   def index
     @lists = current_user.lists.includes(:tasks)
+    @task = Task.new
   end
 
   # GET /lists/1
