@@ -37,7 +37,7 @@
             <%= f.error_notification %>
             <%= f.hidden_field :list_id, value: list.id %>
             <%= f.label 'New Task:', class: 'control-label' %>
-            <%= f.input :description, as: :string, required: true %>
+            <%= f.input :description, required: true %>
             <%= f.button :submit, class: 'btn btn-success' %>
             <% end %>
         </div>
