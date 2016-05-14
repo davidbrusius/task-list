@@ -25,14 +25,21 @@
       </div>
       <div id=<%= "collapse#{index}"%> class="panel-collapse collapse">
         <ul class="list-group">
-          <% list.tasks.each do |task, index| %>
+          <% list.tasks.each do |task| %>
             <li class="list-group-item">
               <%= link_to task.description, edit_task_path(task) %>
             </li>
           <% end %>
         </ul>
         <div class="panel-footer">
-          <%= link_to 'New Task', new_task_path %>
+          <%= simple_form_for(@task, remote: true, wrapper: :inline_form,
+                html: { class: 'form-inline' }) do |f| %>
+            <%= f.error_notification %>
+            <%= f.hidden_field :list_id, value: list.id %>
+            <%= f.label 'New Task:', class: 'control-label' %>
+            <%= f.input :description, as: :string, required: true %>
+            <%= f.button :submit, class: 'btn btn-success' %>
+            <% end %>
         </div>
       </div>
     </div>
