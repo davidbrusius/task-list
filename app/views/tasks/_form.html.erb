@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :list %>
+    <%= f.association :list, label_method: :subject %>
     <%= f.input :description %>
   </div>
 
