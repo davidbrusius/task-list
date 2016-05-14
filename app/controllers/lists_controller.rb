@@ -4,7 +4,7 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    @lists = current_user.lists.all
+    @lists = current_user.lists.includes(:tasks)
   end
 
   # GET /lists/1
