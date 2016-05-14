@@ -5,5 +5,6 @@ RSpec.describe Task, type: :model do
     expect(FactoryGirl.create(:task)).to be_valid
   end
 
+  it { should belong_to(:list) }
   it { should validate_presence_of(:description) }
 end
