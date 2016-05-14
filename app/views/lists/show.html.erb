@@ -1,0 +1,12 @@
+<p>
+  <strong>Subject:</strong>
+  <%= @list.subject %>
+</p>
+
+<p>
+  <strong>Public access:</strong>
+  <%= @list.public_access %>
+</p>
+
+<%= link_to 'Edit', edit_list_path(@list) %> |
+<%= link_to 'Back', lists_path %>
