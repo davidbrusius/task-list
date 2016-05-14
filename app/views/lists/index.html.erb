@@ -1,27 +1,44 @@
-<h1>Listing Lists</h1>
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <h1>Listing Lists</h1>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <%= link_to 'New List', new_list_path, class: 'btn-new-resource pull-right btn btn-success' %>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Subject</th>
-      <th>Public access</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="panel-group" id="lists-accordion">
+  <% @lists.each_with_index do |list, index| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= link_to list.subject, "#collapse#{index}", class: 'panel-title',
+                    data: { toggle: 'collapse', parent: '#lists-accordion' } %>
+        <div class="pull-right">
+          <%= link_to edit_list_path(list), data: { title: 'Edit', toggle: 'tooltip', placement: 'bottom' } do %>
+            <icon class="glyphicon glyphicon-pencil"></i>
+          <% end %>
+          <%= link_to list, method: :delete, data: { confirm: 'Are you sure?',
+                      title: 'Delete', toggle: 'tooltip', placement: 'bottom' } do %>
+            <icon class="glyphicon glyphicon-trash text-danger"></i>
+          <% end %>
+        </div>
+      </div>
+      <div id=<%= "collapse#{index}"%> class="panel-collapse collapse">
+        <ul class="list-group">
+          <% list.tasks.each do |task, index| %>
+            <li class="list-group-item">
+              <%= link_to task.description, edit_task_path(task) %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="panel-footer">
+          <%= link_to 'New Task', new_task_path %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-  <tbody>
-    <% @lists.each do |list| %>
-      <tr>
-        <td><%= list.subject %></td>
-        <td><%= list.public_access %></td>
-        <td><%= link_to 'Show', list %></td>
-        <td><%= link_to 'Edit', edit_list_path(list) %></td>
-        <td><%= link_to 'Destroy', list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New List', new_list_path %>
+<% if @lists.empty? %>
+  <em>No lists to display. Start by creating a list.</em>
+<% end %>
