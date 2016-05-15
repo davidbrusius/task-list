@@ -82,4 +82,5 @@ production:
   <<: *default
   database: task-list_production
   username: task-list
+  url: <%= ENV['DATABASE_URL'] %>
   password: <%= ENV['TASK-LIST_DATABASE_PASSWORD'] %>
