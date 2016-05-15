@@ -1,0 +1,4 @@
+var list = '<%= "#list-collapse-#{@task.list.id}" %>';
+var newTask = "<%= escape_javascript(render @task) %>";
+$(newTask).appendTo(list + ' ul').hide().show('slow');
+$(list + " input[name='task[description]'").val('');
