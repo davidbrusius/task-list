@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= link_to list.subject, "#list-collapse-#{list.id}", data: { toggle: 'collapse', parent: '#lists-accordion' } %>
+    <div class="pull-right">
+      <%= link_to edit_list_path(list), data: { title: 'Edit', toggle: 'tooltip', placement: 'bottom' } do %>
+        <icon class="glyphicon glyphicon-pencil"></i>
+      <% end %>
+      <%= link_to list, method: :delete, data: { confirm: 'Are you sure?',
+                  title: 'Delete', toggle: 'tooltip', placement: 'bottom' } do %>
+        <icon class="glyphicon glyphicon-trash text-danger"></i>
+      <% end %>
+    </div>
+  </div>
+  <div id=<%= "list-collapse-#{list.id}"%> class="panel-collapse collapse">
+    <ul class="list-group">
+      <% list.tasks.each do |task| %>
+        <%= render task %>
+      <% end %>
+    </ul>
+    <div class="panel-footer">
+      <%= simple_form_for(@task, remote: true, wrapper: :inline_form,
+            html: { class: 'form-inline' }) do |f| %>
+        <%= f.error_notification %>
+        <%= f.hidden_field :list_id, value: list.id %>
+        <%= f.label 'New Task:', class: 'control-label' %>
+        <%= f.input :description, required: true %>
+        <%= f.button :submit, class: 'btn btn-success' %>
+        <% end %>
+    </div>
+  </div>
+</div>
