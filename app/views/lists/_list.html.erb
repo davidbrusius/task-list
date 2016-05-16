@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
-      <%= link_to list.subject, "#list-collapse-#{list.id}",
+      <%= link_to list.subject, "#list-collapse-#{list.id}", class: 'collapsed',
                   data: { toggle: 'collapse', parent: '#lists-accordion' } %>
       <div class="pull-right">
         <% unless list.public_access? %>

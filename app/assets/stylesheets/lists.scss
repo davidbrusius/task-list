@@ -1,3 +1,11 @@
-// Place all the styles related to the Lists controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.panel-title {
+  > a {
+    &.collapsed:before { content: "\e114"; }
+    &:before {
+      font-family: 'Glyphicons Halflings';
+      content: "\e113";
+      padding-right: 5px;
+    }
+    &:hover, &:active, &:focus { text-decoration: none; }
+  }
+}
