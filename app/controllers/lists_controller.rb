@@ -5,7 +5,7 @@ class ListsController < ApplicationController
   # GET /lists.json
   def index
     if params[:list_scope] == 'public'
-      @lists = List.public_accessible.includes(:tasks)
+      @lists = List.publicly_accessible.includes(:tasks)
     else
       @lists = current_user.lists.includes(:tasks)
     end

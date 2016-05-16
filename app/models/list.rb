@@ -5,5 +5,5 @@ class List < ActiveRecord::Base
   validates :user, presence: true
   validates :subject, presence: true
 
-  scope :public_accessible, -> { where(public_access: true) }
+  scope :publicly_accessible, -> { where(public_access: true) }
 end
