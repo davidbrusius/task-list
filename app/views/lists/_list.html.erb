@@ -2,6 +2,9 @@
   <div class="panel-heading">
     <%= link_to list.subject, "#list-collapse-#{list.id}", data: { toggle: 'collapse', parent: '#lists-accordion' } %>
     <div class="pull-right">
+      <% unless list.public_access? %>
+        <icon class="glyphicon glyphicon-lock"></i>
+      <% end %>
       <%= link_to edit_list_path(list), data: { title: 'Edit', toggle: 'tooltip', placement: 'bottom' } do %>
         <icon class="glyphicon glyphicon-pencil"></i>
       <% end %>
