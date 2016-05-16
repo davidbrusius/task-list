@@ -11,7 +11,7 @@
         <%= link_to edit_list_path(list), data: { title: 'Edit', toggle: 'tooltip', placement: 'bottom' } do %>
           <i class="glyphicon glyphicon-pencil"></i>
         <% end %>
-        <%= link_to list, method: :delete, data: { confirm: 'Are you sure?',
+        <%= link_to list, method: :delete, data: { confirm: 'This list and all their tasks will be deleted. Are you sure?',
                     title: 'Delete', toggle: 'tooltip', placement: 'bottom' } do %>
           <i class="glyphicon glyphicon-trash text-danger"></i>
         <% end %>
