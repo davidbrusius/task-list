@@ -21,6 +21,7 @@ RSpec.describe List, type: :model do
       3.times { FactoryGirl.create(:list, user: user, public_access: true) }
 
       expect(List.publicly_accessible.count).to be(3)
+      expect(List.publicly_accessible.pluck(:public_access)).to match_array([true, true, true])
     end
   end
 end
