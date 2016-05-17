@@ -6,4 +6,8 @@ class List < ActiveRecord::Base
   validates :subject, presence: true
 
   scope :publicly_accessible, -> { where(public_access: true) }
+
+  def owned_by?(user)
+    self.user == user
+  end
 end

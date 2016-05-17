@@ -24,4 +24,25 @@ RSpec.describe List, type: :model do
       expect(List.publicly_accessible.pluck(:public_access)).to match_array([true, true, true])
     end
   end
+
+  describe '#owned_by?' do
+    let!(:user) { FactoryGirl.create(:user) }
+
+    context 'user is the owner of the list' do
+      it 'return true' do
+        list = FactoryGirl.create(:list, user: user)
+
+        expect(list.owned_by?(user)).to be true
+      end
+    end
+
+    context 'user is not the owner of the list' do
+      it 'return false' do
+        other_user = FactoryGirl.create(:user)
+        list = FactoryGirl.create(:list, user: other_user)
+
+        expect(list.owned_by?(user)).to be false
+      end
+    end
+  end
 end
