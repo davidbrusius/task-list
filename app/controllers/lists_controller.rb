@@ -62,6 +62,20 @@ class ListsController < ApplicationController
     end
   end
 
+  # POST /lists/1/favorite
+  def favorite
+    @list = List.publicly_accessible.find(params[:list_id])
+    @list = @list.favorite_lists.new(user: current_user)
+
+    respond_to do |format|
+      if @list.save
+        format.html { redirect_to lists_path, notice: 'List favorited.' }
+      else
+        format.html { }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_list
