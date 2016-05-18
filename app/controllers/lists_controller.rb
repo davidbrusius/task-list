@@ -5,12 +5,11 @@ class ListsController < ApplicationController
   # GET /lists.json
   def index
     if params[:list_scope] == 'public'
-      @lists = List.publicly_accessible
-                   .where.not(user: current_user)
-                   .includes(:tasks)
+      @lists = List.publicly_accessible.where.not(user: current_user)
     else
-      @lists = current_user.lists.includes(:tasks)
+      @lists = current_user.lists
     end
+    @lists = @lists.includes(:user, :tasks)
     @task = Task.new
   end
 
