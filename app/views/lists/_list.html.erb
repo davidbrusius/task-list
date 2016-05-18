@@ -16,6 +16,11 @@
                       title: 'Delete', toggle: 'tooltip', placement: 'bottom' } do %>
             <i class="glyphicon glyphicon-trash text-danger"></i>
           <% end %>
+        <% else list.public_access? %>
+          <%= link_to list_favorite_path(list), method: :post, data: { title: 'Favorite',
+                      toggle: 'tooltip', placement: 'bottom' } do %>
+            <i class="glyphicon glyphicon-star-empty"></i>
+          <% end %>
         <% end %>
       </div>
     </div>
