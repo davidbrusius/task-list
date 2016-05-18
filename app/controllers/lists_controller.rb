@@ -4,12 +4,7 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    if params[:list_scope] == 'public'
-      @lists = List.publicly_accessible.where.not(user: current_user)
-    else
-      @lists = current_user.lists
-    end
-    @lists = @lists.includes(:user, :tasks)
+    @lists = scoped_lists.includes(:user, :tasks)
     @task = Task.new
   end
 
@@ -76,5 +71,11 @@ class ListsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
       params.require(:list).permit(:subject, :public_access)
+    end
+
+    def scoped_lists
+      return List.publicly_accessible.where.not(user: current_user) if params[:list_scope] == 'public'
+      return current_user.favorited_lists if params[:list_scope] == 'favorited'
+      return current_user.lists
     end
 end
