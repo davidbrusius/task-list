@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :lists do
     get ':list_scope', action: :index, on: :collection, as: :scoped,
                        constraints: { list_scope: /public|favorited/ }
+    post :favorite
   end
 
   root 'lists#index'
