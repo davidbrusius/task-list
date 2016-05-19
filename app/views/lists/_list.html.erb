@@ -16,7 +16,7 @@
                       title: 'Delete', toggle: 'tooltip', placement: 'bottom' } do %>
             <i class="glyphicon glyphicon-trash text-danger"></i>
           <% end %>
-        <% else list.public_access? %>
+        <% elsif list.public_access? %>
           <div class="favorite-list">
             <%= render 'favorite_list', list: list%>
           </div>
