@@ -64,15 +64,29 @@ class ListsController < ApplicationController
 
   # POST /lists/1/favorite
   def favorite
-    @list = List.publicly_accessible.find(params[:list_id])
-    @list = @list.favorite_lists.new(user: current_user)
+    list = List.publicly_accessible.find(params[:list_id])
+    @favorite_list = list.favorite_lists.new(user: current_user)
 
     respond_to do |format|
-      if @list.save
-        format.html { redirect_to lists_path, notice: 'List favorited.' }
+      if @favorite_list.save
+        format.html { redirect_to lists_url(list_scope: 'public'), notice: 'List was successfully favorited.' }
+        format.js   {  }
       else
-        format.html { }
+        format.html { redirect_to lists_url(list_scope: 'public') }
+        format.js   {  }
       end
+    end
+  end
+
+  # DELETE /lists/1/unfavorite
+  def unfavorite
+    list = List.publicly_accessible.find(params[:list_id])
+    @favorite_list = list.favorite_lists.find_by(user: current_user)
+
+    @favorite_list.destroy
+    respond_to do |format|
+      format.html { redirect_to lists_url, notice: 'List was successfully unfavorited.' }
+      format.js   { }
     end
   end
 

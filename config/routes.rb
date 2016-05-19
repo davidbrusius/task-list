@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get ':list_scope', action: :index, on: :collection, as: :scoped,
                        constraints: { list_scope: /public|favorited/ }
     post :favorite
+    delete :unfavorite
   end
 
   root 'lists#index'
