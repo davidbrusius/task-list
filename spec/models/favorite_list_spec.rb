@@ -17,4 +17,25 @@ RSpec.describe FavoriteList, type: :model do
   it 'has a valid factory' do
     expect(FactoryGirl.create(:favorite_list)).to be_valid
   end
+
+  context 'favorite a not publicly accessible list' do
+   it 'prevent favorite list creation' do
+     user = FactoryGirl.create(:user)
+     list = FactoryGirl.create(:list, public_access: false)
+     favorite_list = list.favorite_lists.create(user: user)
+
+     expect(favorite_list.persisted?).to be(false)
+     expect(favorite_list.errors[:list]).to include('is not publicly accessible')
+    end
+  end
+
+  context 'favorite a publicly accessible list' do
+   it 'create favorite list' do
+     user = FactoryGirl.create(:user)
+     list = FactoryGirl.create(:list, public_access: true)
+     favorite_list = list.favorite_lists.create(user: user)
+     expect(favorite_list.errors).to be_empty
+     expect(favorite_list.persisted?).to be(true)
+    end
+  end
 end
