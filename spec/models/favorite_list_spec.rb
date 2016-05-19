@@ -36,6 +36,7 @@ RSpec.describe FavoriteList, type: :model do
      favorite_list = list.favorite_lists.create(user: user)
      expect(favorite_list.errors).to be_empty
      expect(favorite_list.persisted?).to be(true)
+     expect(list.favorited_by?(user)).to be(true)
     end
   end
 end
