@@ -1,0 +1,5 @@
+var list = '<%= "#list-collapse-#{@favorite_list.list_id}" %>';
+var favoriteList = $(list).parents('.panel').find('.favorite-list');
+var favoriteLink = "<%= escape_javascript(render 'favorite_list', list: @favorite_list.list ) %>";
+$(favoriteList).empty();
+$(favoriteLink).appendTo(favoriteList).hide().show('slow');

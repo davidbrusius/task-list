@@ -18,4 +18,9 @@ module ApplicationHelper
     end
     nil
   end
+
+  def active_link_to(name = nil, path = nil, html_options = {})
+    html_options[:class] = "#{html_options[:class]} active" if current_page?(path)
+    link_to(name, path, html_options)
+  end
 end

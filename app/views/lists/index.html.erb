@@ -1,6 +1,12 @@
+<div class="list-scope btn-group">
+  <%= active_link_to 'Yours', lists_path, class: 'btn btn-default' %>
+  <%= active_link_to 'Publics', scoped_lists_path('public'), class: 'btn btn-default' %>
+  <%= active_link_to 'Favorited', scoped_lists_path('favorited'), class: 'btn btn-default' %>
+</div>
+
 <div class="row">
   <div class="col-md-6 col-sm-6 col-xs-6">
-    <h1>Listing Lists</h1>
+    <h1>Listing Tasks Lists</h1>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-6">
     <%= link_to 'New List', new_list_path, class: 'btn-new-resource pull-right btn btn-success' %>

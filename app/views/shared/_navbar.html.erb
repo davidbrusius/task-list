@@ -5,8 +5,7 @@
     </div>
     <% if user_signed_in? %>
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Lists', lists_path %></li>
-        <li><%= link_to 'Tasks', tasks_path %></li>
+        <li><%= active_link_to 'Lists', lists_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to current_user.email, edit_user_registration_path %></li>

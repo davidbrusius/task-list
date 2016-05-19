@@ -26,4 +26,22 @@ RSpec.describe ApplicationHelper, :type => :helper do
       end
     end
   end
+
+  describe "#active_link_to" do
+    context "current_page? evaluates to true" do
+      it "returns a link with active class" do
+        allow(self).to receive(:current_page?).and_return(true)
+        generated_link = active_link_to('Some Link', '/some_link')
+        expect(generated_link).to match(/active/)
+      end
+    end
+
+    context "current_page? evaluates to false" do
+      it "returns a link without active class" do
+        allow(self).to receive(:current_page?).and_return(false)
+        generated_link = active_link_to('Some Link', '/some_link')
+        expect(generated_link).not_to match(/active/)
+      end
+    end
+  end
 end
