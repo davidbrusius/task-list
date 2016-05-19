@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518162116) do
+ActiveRecord::Schema.define(version: 20160519123437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160518162116) do
   end
 
   add_index "favorite_lists", ["list_id"], name: "index_favorite_lists_on_list_id", using: :btree
+  add_index "favorite_lists", ["user_id", "list_id"], name: "index_favorite_lists_on_user_id_and_list_id", unique: true, using: :btree
   add_index "favorite_lists", ["user_id"], name: "index_favorite_lists_on_user_id", using: :btree
 
   create_table "lists", force: :cascade do |t|
