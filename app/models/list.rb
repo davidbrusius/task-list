@@ -12,4 +12,8 @@ class List < ActiveRecord::Base
   def owned_by?(user)
     self.user == user
   end
+
+  def favorited_by?(user)
+    favorite_lists.exists?(user: user)
+  end
 end

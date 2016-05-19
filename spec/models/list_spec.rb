@@ -47,4 +47,27 @@ RSpec.describe List, type: :model do
       end
     end
   end
+
+  describe '#favorited_by?' do
+    let!(:user) { FactoryGirl.create(:user) }
+
+    context 'user favorited the list' do
+      it 'return true' do
+        list = FactoryGirl.create(:list, user: user, public_access: true)
+        FactoryGirl.create(:favorite_list, user: user, list: list)
+
+        expect(list.favorited_by?(user)).to be true
+      end
+    end
+
+    context 'user does not favorited the list' do
+      it 'return false' do
+        other_user = FactoryGirl.create(:user)
+        list = FactoryGirl.create(:list, user: user, public_access: true)
+        FactoryGirl.create(:favorite_list, user: other_user, list: list)
+
+        expect(list.favorited_by?(user)).to be false
+      end
+    end
+  end
 end
