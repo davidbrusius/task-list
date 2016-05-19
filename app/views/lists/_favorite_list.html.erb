@@ -1,4 +1,4 @@
-<% if list.favorited_by(user: current_user).any? %>
+<% if list.favorited_by?(current_user) %>
   <%= link_to list_unfavorite_path(list), method: :delete, remote: true, data: {
               title: 'Unfavorite', toggle: 'tooltip', placement: 'bottom' } do %>
     <i class="glyphicon glyphicon-star"></i>
