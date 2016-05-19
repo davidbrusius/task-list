@@ -70,4 +70,17 @@ RSpec.describe List, type: :model do
       end
     end
   end
+
+  describe '.destroy_favorite_lists' do
+    context 'list public_access changed from true to false' do
+      it 'destroy all favorite lists of the changed list' do
+        list = FactoryGirl.create(:list, public_access: true)
+        2.times { FactoryGirl.create(:favorite_list, list: list) }
+        expect(list.favorite_lists.count).to be(2)
+        list.public_access = false
+        list.save!
+        expect(list.favorite_lists.count).to be(0)
+      end
+    end
+  end
 end

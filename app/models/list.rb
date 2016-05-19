@@ -7,6 +7,8 @@ class List < ActiveRecord::Base
   validates :user, presence: true
   validates :subject, presence: true
 
+  after_update :destroy_favorite_lists
+
   scope :publicly_accessible, -> { where(public_access: true) }
 
   def owned_by?(user)
@@ -15,5 +17,12 @@ class List < ActiveRecord::Base
 
   def favorited_by?(user)
     favorite_lists.exists?(user: user)
+  end
+
+  private
+  def destroy_favorite_lists
+    if public_access_changed? && !public_access?
+      favorite_lists.destroy_all
+    end
   end
 end
