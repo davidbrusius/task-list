@@ -22,16 +22,9 @@ $(document).on('page:change', function () {
 });
 
 $(document).ajaxError(function () {
-  showAjaxError();
+  $('.ajax-error').show('slow');
 });
 
 $(document).ajaxSuccess(function () {
-  hideAjaxError();
-});
-
-var showAjaxError = function () {
-  $('.ajax-error').show('slow');
-};
-var hideAjaxError = function () {
   $('.ajax-error').hide();
-};
+});
