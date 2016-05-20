@@ -3,7 +3,8 @@ require 'rails_helper'
 feature 'Users delete a task' do
   let(:user) { FactoryGirl.create(:user) }
   given!(:list) { FactoryGirl.create(:list, user: user) }
-  given!(:task) { FactoryGirl.create(:task, list: list) }
+  given!(:task) { FactoryGirl.create(:task, description: Faker::Lorem.words(5).join(' '),
+                    list: list) }
 
   scenario 'from a list with tasks', js: true do
     sign_in_with user.email, user.password
