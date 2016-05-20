@@ -6,7 +6,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-
+require 'capybara/rails'
+require 'capybara/rspec'
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -20,7 +21,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -33,7 +34,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -54,6 +55,32 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Clean up and initialize database before
+  # running test exmaples
+  config.before(:suite) do
+    # Truncate database to clean up garbage from
+    # interrupted or badly written examples
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    # Use really fast transaction strategy for all
+    # examples except `js: true` capybara specs
+    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
+
+    # Start transaction
+    DatabaseCleaner.cleaning do
+
+      # Run example
+      example.run
+    end
+
+    load "#{Rails.root}/db/seeds.rb" if example.metadata[:js]
+
+    # Clear session data
+    Capybara.reset_sessions!
+  end
 end
 
 Shoulda::Matchers.configure do |config|
