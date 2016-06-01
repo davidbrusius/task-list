@@ -45,8 +45,9 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to lists_path, notice: 'Task was successfully updated.' }
+        format.html { redirect_to lists_url, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
+        format.js   { }
       else
         format.html { render :edit }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -77,6 +78,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:list_id, :description)
+      params.require(:task).permit(:list_id, :description, :done)
     end
 end

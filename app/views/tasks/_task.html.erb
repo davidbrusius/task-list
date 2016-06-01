@@ -1,5 +1,14 @@
 <li class="list-group-item task-<%= task.id %>">
   <% if task.list.owned_by?(current_user) %>
+    <%= link_to task_path(task, task: { done: !task.done }), method: :put,
+                remote: true, class: 'task-toggle-done' do %>
+      <% if task.done %>
+        <i class="glyphicon glyphicon-check text-success"></i>
+      <% else %>
+        <i class="glyphicon glyphicon-unchecked"></i>
+      <% end %>
+    <% end %>
+
     <%= link_to task.description, edit_task_path(task) %>
     <div class="pull-right">
       <%= link_to edit_task_path(task), data: { title: 'Edit', toggle: 'tooltip', placement: 'bottom' } do %>

@@ -1,0 +1,3 @@
+var task = '<%= "#list-collapse-#{@task.list_id} .task-#{@task.id}" %>';
+var updatedTask = "<%= escape_javascript(render @task) %>";
+$(task).replaceWith(updatedTask);
