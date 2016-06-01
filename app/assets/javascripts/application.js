@@ -20,3 +20,11 @@
 $(document).on('page:change', function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+$(document).ajaxError(function () {
+  $('.ajax-error').show('slow');
+});
+
+$(document).ajaxSuccess(function () {
+  $('.ajax-error').hide();
+});

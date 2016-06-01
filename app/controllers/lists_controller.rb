@@ -70,10 +70,10 @@ class ListsController < ApplicationController
     respond_to do |format|
       if @favorite_list.save
         format.html { redirect_to lists_url(list_scope: 'public'), notice: 'List was successfully favorited.' }
-        format.js   { render :template => 'lists/toggle_favorite.js.erb' }
+        format.js   { render template: 'lists/toggle_favorite.js.erb' }
       else
         format.html { redirect_to lists_url(list_scope: 'public') }
-        format.js   {  }
+        format.js   { render status: 500, nothing: true }
       end
     end
   end
@@ -86,7 +86,7 @@ class ListsController < ApplicationController
     @favorite_list.destroy
     respond_to do |format|
       format.html { redirect_to lists_url, notice: 'List was successfully unfavorited.' }
-      format.js   { render :template => 'lists/toggle_favorite.js.erb' }
+      format.js   { render template: 'lists/toggle_favorite.js.erb' }
     end
   end
 

@@ -19,3 +19,8 @@
     &:hover { background-color: #2e6da4; }
   }
 }
+
+.favorite-list i.glyphicon {
+    &.glyphicon-star,
+    &.glyphicon-star-empty { font-size: 20px; }
+}
