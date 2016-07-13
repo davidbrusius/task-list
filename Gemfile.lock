@@ -228,7 +228,6 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
   capybara
-  coffee-rails (~> 4.1.0)
   database_cleaner
   devise
   devise-i18n
@@ -256,4 +255,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.3
+   1.12.5
