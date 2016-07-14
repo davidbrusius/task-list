@@ -3,11 +3,9 @@ require 'rails_helper'
 feature 'Users create multiple tasks' do
   let(:user) { FactoryGirl.create(:user) }
   given!(:list) { FactoryGirl.create(:list, user: user) }
-  before do
-    sign_in_with user.email, user.password
-  end
 
   scenario 'after create a list add tasks via AJAX', js: true do
+    sign_in_with user.email, user.password
     visit lists_path
     click_link list.subject
     for i in 0..4

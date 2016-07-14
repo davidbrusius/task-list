@@ -13,28 +13,29 @@ RSpec.describe List, type: :model do
   end
 
   it 'has a valid factory' do
-    expect(FactoryGirl.create(:list)).to be_valid
+    expect(FactoryGirl.build(:list)).to be_valid
   end
 
   describe '.publicly_accessible' do
     it 'return only public lists' do
       user = FactoryGirl.create(:user)
-      2.times { FactoryGirl.create(:list, user: user) }
-      3.times { FactoryGirl.create(:list, user: user, public_access: true) }
+      private_list = FactoryGirl.create(:list, user: user)
+      public_list = FactoryGirl.create(:public_list, user: user)
+      other_public_list = FactoryGirl.create(:public_list, user: user)
 
-      expect(List.publicly_accessible.count).to be(3)
-      expect(List.publicly_accessible.pluck(:public_access)).to match_array([true, true, true])
+      expect(List.publicly_accessible).not_to include(private_list)
+      expect(List.publicly_accessible).to include(public_list, other_public_list)
     end
   end
 
   describe '#owned_by?' do
-    let!(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
 
     context 'user is the owner of the list' do
       it 'return true' do
         list = FactoryGirl.create(:list, user: user)
 
-        expect(list.owned_by?(user)).to be true
+        expect(list).to be_owned_by(user)
       end
     end
 
@@ -44,32 +45,32 @@ RSpec.describe List, type: :model do
 
         list = FactoryGirl.create(:list, user: other_user)
 
-        expect(list.owned_by?(user)).to be false
+        expect(list).not_to be_owned_by(user)
       end
     end
   end
 
   describe '#favorited_by?' do
-    let!(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
 
     context 'user favorited the list' do
       it 'return true' do
-        list = FactoryGirl.create(:list, user: user, public_access: true)
+        list = FactoryGirl.create(:public_list, user: user)
 
         FactoryGirl.create(:favorite_list, user: user, list: list)
 
-        expect(list.favorited_by?(user)).to be true
+        expect(list).to be_favorited_by(user)
       end
     end
 
     context 'user does not favorited the list' do
       it 'return false' do
         other_user = FactoryGirl.create(:user)
-        list = FactoryGirl.create(:list, user: user, public_access: true)
+        list = FactoryGirl.create(:public_list, user: user)
 
         FactoryGirl.create(:favorite_list, user: other_user, list: list)
 
-        expect(list.favorited_by?(user)).to be false
+        expect(list).not_to be_favorited_by(user)
       end
     end
   end
@@ -77,15 +78,12 @@ RSpec.describe List, type: :model do
   describe '.destroy_favorite_lists' do
     context 'list public_access changed from true to false' do
       it 'destroy all favorite lists of the changed list' do
-        list = FactoryGirl.create(:list, public_access: true)
-        2.times { FactoryGirl.create(:favorite_list, list: list) }
+        list = FactoryGirl.create(:public_list)
+        FactoryGirl.create_list(:favorite_list, 2, list: list)
 
-        expect(list.favorite_lists.count).to be(2)
-
-        list.public_access = false
-        list.save!
-
-        expect(list.favorite_lists.count).to be(0)
+        expect {
+          list.update!(public_access: false)
+        }.to change { list.favorite_lists.count }.from(2).to(0)
       end
     end
   end
