@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :list do
-    user { create(:user) }
+    user
     subject Faker::Lorem.word
     public_access false
   end
