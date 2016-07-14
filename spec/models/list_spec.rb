@@ -41,6 +41,7 @@ RSpec.describe List, type: :model do
     context 'user is not the owner of the list' do
       it 'return false' do
         other_user = FactoryGirl.create(:user)
+
         list = FactoryGirl.create(:list, user: other_user)
 
         expect(list.owned_by?(user)).to be false
@@ -54,6 +55,7 @@ RSpec.describe List, type: :model do
     context 'user favorited the list' do
       it 'return true' do
         list = FactoryGirl.create(:list, user: user, public_access: true)
+
         FactoryGirl.create(:favorite_list, user: user, list: list)
 
         expect(list.favorited_by?(user)).to be true
@@ -64,6 +66,7 @@ RSpec.describe List, type: :model do
       it 'return false' do
         other_user = FactoryGirl.create(:user)
         list = FactoryGirl.create(:list, user: user, public_access: true)
+
         FactoryGirl.create(:favorite_list, user: other_user, list: list)
 
         expect(list.favorited_by?(user)).to be false
@@ -76,9 +79,12 @@ RSpec.describe List, type: :model do
       it 'destroy all favorite lists of the changed list' do
         list = FactoryGirl.create(:list, public_access: true)
         2.times { FactoryGirl.create(:favorite_list, list: list) }
+
         expect(list.favorite_lists.count).to be(2)
+
         list.public_access = false
         list.save!
+
         expect(list.favorite_lists.count).to be(0)
       end
     end

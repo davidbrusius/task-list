@@ -12,6 +12,7 @@ feature 'Users access page with favorited lists' do
 
   scenario 'favorited lists are listed' do
     visit scoped_lists_path(list_scope: 'favorited')
+
     expect(page).to have_content(first_list.subject)
     expect(page).to have_content(second_list.subject)
   end

@@ -22,6 +22,7 @@ RSpec.describe FavoriteList, type: :model do
    it 'prevent favorite list creation' do
      user = FactoryGirl.create(:user)
      list = FactoryGirl.create(:list, public_access: false)
+
      favorite_list = list.favorite_lists.create(user: user)
 
      expect(favorite_list.persisted?).to be(false)
@@ -33,7 +34,9 @@ RSpec.describe FavoriteList, type: :model do
    it 'create favorite list' do
      user = FactoryGirl.create(:user)
      list = FactoryGirl.create(:list, public_access: true)
+
      favorite_list = list.favorite_lists.create(user: user)
+
      expect(favorite_list.errors).to be_empty
      expect(favorite_list.persisted?).to be(true)
      expect(list.favorited_by?(user)).to be(true)
