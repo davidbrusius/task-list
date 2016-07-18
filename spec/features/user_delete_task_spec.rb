@@ -11,8 +11,10 @@ feature 'Users delete a task' do
     visit lists_path
     click_link list.subject
     expect(page).to have_content(task.description)
+
     first(".task-#{task.id} a[data-title=Delete]").click
     page.driver.browser.switch_to.alert.accept
+
     expect(page).to_not have_content(task.description)
   end
 end

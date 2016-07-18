@@ -12,6 +12,7 @@ feature 'Users create multiple tasks' do
       task_description = Faker::Lorem.words(2).join(' ')
       fill_in 'task_description', with: task_description
       click_button 'Create Task'
+
       expect(page).to have_content(task_description)
     end
   end
