@@ -102,8 +102,13 @@ class ListsController < ApplicationController
     end
 
     def scoped_lists
-      return List.publicly_accessible.where.not(user: current_user) if params[:list_scope] == 'public'
-      return current_user.favorited_lists if params[:list_scope] == 'favorited'
-      return current_user.lists
+      case params[:list_scope]
+      when 'public'
+        List.publicly_accessible.where.not(user: current_user)
+      when 'favorited'
+        current_user.favorited_lists
+      else
+        current_user.lists
+      end
     end
 end
