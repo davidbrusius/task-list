@@ -45,7 +45,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'selenium-webdriver'
+  gem 'poltergeist'
 end
 
 gem 'rails_12factor', group: :production

@@ -13,7 +13,6 @@ feature 'Users delete a task' do
     expect(page).to have_content(task.description)
 
     first(".task-#{task.id} a[data-title=Delete]").click
-    page.driver.browser.switch_to.alert.accept
 
     expect(page).to_not have_content(task.description)
   end

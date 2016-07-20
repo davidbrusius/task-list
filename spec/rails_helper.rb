@@ -8,6 +8,8 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -77,11 +79,11 @@ RSpec.configure do |config|
     end
 
     load "#{Rails.root}/db/seeds.rb" if example.metadata[:js]
-
-    # Clear session data
-    Capybara.reset_sessions!
   end
 end
+
+Capybara.javascript_driver = :poltergeist
+Capybara.reset_sessions! # Clear session data
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
