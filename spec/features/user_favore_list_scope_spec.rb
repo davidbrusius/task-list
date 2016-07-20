@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Users access page with favorited lists' do
   given!(:user) { FactoryGirl.create(:user) }
-  given!(:first_list) { FactoryGirl.create(:list, public_access: true) }
-  given!(:second_list) { FactoryGirl.create(:list, public_access: true) }
+  given!(:first_list)  { FactoryGirl.create(:public_list) }
+  given!(:second_list) { FactoryGirl.create(:public_list) }
 
   scenario 'favorited lists are listed' do
     sign_in_with user.email, user.password

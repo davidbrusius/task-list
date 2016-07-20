@@ -9,21 +9,24 @@ feature 'Users toggle task done state' do
   scenario 'mark task as done', js: true do
     task = FactoryGirl.create(:task, user: user)
     visit lists_path
+
     click_link task.list.subject
     expect(page).to have_content(task.description)
-    expect(page).to have_selector :css, 'i.glyphicon-unchecked'
+    expect(page).to have_selector(:icon, 'unchecked')
+
     first(".task-#{task.id} a.task-toggle-done").click
-    expect(page).to have_selector :css, 'i.glyphicon-check'
+    expect(page).to have_selector(:icon, 'check')
   end
 
-  scenario 'mark task as undone', js: true do
-    task = FactoryGirl.create(:task, user: user, done: true)
+  scenario 'mark task as not done', js: true do
+    task = FactoryGirl.create(:task_done, user: user)
     visit lists_path
+
     click_link task.list.subject
     expect(page).to have_content(task.description)
-    expect(page).to have_selector :css, 'i.glyphicon-check'
-    first(".task-#{task.id} a.task-toggle-done").click
-    expect(page).to have_selector :css, 'i.glyphicon-unchecked'
-  end
+    expect(page).to have_selector(:icon, 'check')
 
+    first(".task-#{task.id} a.task-toggle-done").click
+    expect(page).to have_selector(:icon, 'unchecked')
+  end
 end

@@ -8,12 +8,13 @@ feature 'Users create multiple tasks' do
     sign_in_with user.email, user.password
     visit lists_path
     click_link list.subject
-    for i in 0..4
-      task_description = Faker::Lorem.words(2).join(' ')
-      fill_in 'task_description', with: task_description
-      click_button 'Create Task'
 
-      expect(page).to have_content(task_description)
-    end
+    fill_in 'Description', with: 'Book Flight'
+    click_button 'Create Task'
+    fill_in 'Description', with: 'Packing'
+    click_button 'Create Task'
+
+    expect(page).to have_content('Book Flight')
+    expect(page).to have_content('Packing')
   end
 end

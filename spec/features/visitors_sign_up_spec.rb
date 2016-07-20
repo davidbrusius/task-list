@@ -21,12 +21,4 @@ feature 'Visitor signs up' do
     expect(page).to have_content("Password can't be blank")
     expect(page).to have_content('Sign in')
   end
-
-  def sign_up_with(email, password)
-    visit new_user_registration_path
-    fill_in 'user_email', with: email
-    fill_in 'user_password', with: password
-    fill_in 'user_password_confirmation', with: password
-    click_button 'Sign up'
-  end
 end
