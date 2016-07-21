@@ -11,7 +11,7 @@ feature 'Users delete a task' do
     click_link list.subject
 
     expect(page).to have_content(task.description)
-    find("a[alt='Delete Task']").click
+    find("a[data-title='Delete Task']").click
 
     expect(page).not_to have_content(task.description)
   end

@@ -10,7 +10,7 @@ feature 'Users favorite and unfavorite a list' do
   scenario 'favorite when a list is not favorited by the user', js: true do
     visit scoped_lists_path(list_scope: 'public')
 
-    find("a[alt='Favorite List']").click
+    find("a[data-title='Favorite List']").click
 
     expect(page).to have_selector(:icon, 'star')
     expect(page).to have_link('', href: list_unfavorite_path(list_id: list.id))
@@ -20,7 +20,7 @@ feature 'Users favorite and unfavorite a list' do
     list.favorite_lists.create(user: user)
     visit scoped_lists_path(list_scope: 'public')
 
-    find("a[alt='Unfavorite List']").click
+    find("a[data-title='Unfavorite List']").click
 
     expect(page).to have_selector(:icon, 'star')
     expect(page).to have_link('', href: list_favorite_path(list_id: list.id))

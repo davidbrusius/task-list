@@ -14,9 +14,8 @@
       <%= link_to edit_task_path(task), data: { title: 'Edit', toggle: 'tooltip', placement: 'bottom' } do %>
         <i class="glyphicon glyphicon-pencil"></i>
       <% end %>
-      <%= link_to task, method: :delete, remote: true, alt: 'Delete Task',
-                  data: { confirm: 'Are you sure?', title: 'Delete',
-                  toggle: 'tooltip', placement: 'bottom' } do %>
+      <%= link_to task, method: :delete, remote: true, data: { confirm: 'Are you sure?',
+                  title: 'Delete Task', toggle: 'tooltip', placement: 'bottom' } do %>
         <i class="glyphicon glyphicon-trash text-danger"></i>
       <% end %>
     </div>
