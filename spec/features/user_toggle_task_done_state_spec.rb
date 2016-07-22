@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 feature 'Users toggle task done state' do
-  given!(:user) { FactoryGirl.create(:user) }
+  let(:user) { create(:user) }
   before do
     sign_in_with user.email, user.password
   end
 
   scenario 'mark task as done', js: true do
-    task = FactoryGirl.create(:task, user: user)
+    task = create(:task, user: user)
     visit lists_path
 
     click_link task.list.subject
@@ -19,7 +19,7 @@ feature 'Users toggle task done state' do
   end
 
   scenario 'mark task as not done', js: true do
-    task = FactoryGirl.create(:task_done, user: user)
+    task = create(:task_done, user: user)
     visit lists_path
 
     click_link task.list.subject

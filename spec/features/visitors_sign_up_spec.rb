@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 feature 'Visitor signs up' do
+
   scenario 'with valid email and password' do
     sign_up_with 'valid@example.com', 'password'
 

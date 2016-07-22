@@ -1,15 +1,12 @@
 require 'rails_helper'
 
 feature 'Users favorite and unfavorite a list' do
-  given!(:user) { FactoryGirl.create(:user) }
-  given!(:list) { FactoryGirl.create(:public_list) }
-  before do
-    sign_in_with user.email, user.password
-  end
 
   scenario 'favorite when a list is not favorited by the user', js: true do
-    visit scoped_lists_path(list_scope: 'public')
+    sign_in
+    list = create(:public_list)
 
+    visit scoped_lists_path(list_scope: 'public')
     find("a[data-title='Favorite List']").click
 
     expect(page).to have_selector(:icon, 'star')
@@ -17,12 +14,14 @@ feature 'Users favorite and unfavorite a list' do
   end
 
   scenario 'unfavorite when a list is favorited by the user', js: true do
-    list.favorite_lists.create(user: user)
-    visit scoped_lists_path(list_scope: 'public')
+    user = create(:user)
+    sign_in_with user.email, user.password
+    favorite_list = create(:favorite_list, user: user, list: create(:public_list))
 
+    visit scoped_lists_path(list_scope: 'public')
     find("a[data-title='Unfavorite List']").click
 
     expect(page).to have_selector(:icon, 'star')
-    expect(page).to have_link('', href: list_favorite_path(list_id: list.id))
+    expect(page).to have_link('', href: list_favorite_path(list_id: favorite_list.list_id))
   end
 end

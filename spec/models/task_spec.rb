@@ -7,6 +7,6 @@ RSpec.describe Task, type: :model do
   end
 
   it 'has a valid factory' do
-    expect(FactoryGirl.create(:task)).to be_valid
+    expect(create(:task)).to be_valid
   end
 end
