@@ -22,7 +22,7 @@ $(document).on('page:change', function () {
 });
 
 $(document).ajaxError(function () {
-  $('.ajax-error').show('slow');
+  $('.ajax-error').show('slow').delay(2000).hide('slow');
 });
 
 $(document).ajaxSuccess(function () {

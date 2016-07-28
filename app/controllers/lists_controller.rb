@@ -75,7 +75,7 @@ class ListsController < ApplicationController
       end
     else
       if request.xhr?
-        render status: :unprocessable_entity
+        render nothing: true, status: :unprocessable_entity
       else
         redirect_to lists_url(list_scope: 'public')
       end

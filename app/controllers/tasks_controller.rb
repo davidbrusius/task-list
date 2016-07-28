@@ -35,7 +35,7 @@ class TasksController < ApplicationController
       end
     else
       if request.xhr?
-        head :no_content, status: :unprocessable_entity
+        render nothing: true, status: :unprocessable_entity
       else
         render :new
       end
@@ -52,7 +52,7 @@ class TasksController < ApplicationController
       end
     else
       if request.xhr?
-        head :no_content, status: :unprocessable_entity
+        render nothing: true, status: :unprocessable_entity
       else
         render :edit
       end
