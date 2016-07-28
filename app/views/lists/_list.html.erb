@@ -25,8 +25,8 @@
     </div>
   </div>
 
-  <div id=<%= "list-collapse-#{list.id}"%> class="panel-collapse collapse">
-    <ul class="list-group">
+  <div id=<%= "list-collapse-#{list.id}"%> class="panel-collapse collapse list-items">
+    <ul class="list-group" data-list-tasks="true">
       <% list.tasks.each do |task| %>
         <%= render task %>
       <% end %>
@@ -34,7 +34,7 @@
     <div class="panel-footer">
       <% if list.owned_by?(current_user) %>
         <%= simple_form_for(@task, remote: true, wrapper: :inline_form,
-              html: { class: 'form-inline' }) do |f| %>
+              html: { data: { 'create-task': true }, class: 'form-inline' }) do |f| %>
           <%= f.error_notification %>
           <%= f.hidden_field :list_id, value: list.id %>
           <%= f.label 'New Task:', class: 'control-label' %>

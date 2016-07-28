@@ -35,4 +35,9 @@ $(document).on('page:change', function () {
     var favorite = new FavoriteList(this);
     favorite.bindEvents();
   });
+
+  $('.list-items').each(function() {
+    var task = new Task(this);
+    task.bindEvents();
+  });
 });
