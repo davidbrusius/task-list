@@ -1,29 +1,21 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [:show, :edit, :update, :destroy]
 
-  # GET /lists
-  # GET /lists.json
   def index
     @lists = scoped_lists.includes(:user, :tasks)
     @task = Task.new
   end
 
-  # GET /lists/1
-  # GET /lists/1.json
   def show
   end
 
-  # GET /lists/new
   def new
     @list = List.new
   end
 
-  # GET /lists/1/edit
   def edit
   end
 
-  # POST /lists
-  # POST /lists.json
   def create
     @list = current_user.lists.new(list_params)
 
@@ -38,8 +30,6 @@ class ListsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /lists/1
-  # PATCH/PUT /lists/1.json
   def update
     respond_to do |format|
       if @list.update(list_params)
@@ -52,8 +42,6 @@ class ListsController < ApplicationController
     end
   end
 
-  # DELETE /lists/1
-  # DELETE /lists/1.json
   def destroy
     @list.destroy
     respond_to do |format|
@@ -62,7 +50,6 @@ class ListsController < ApplicationController
     end
   end
 
-  # POST /lists/1/favorite
   def favorite
     list = List.publicly_accessible.find(params[:list_id])
     @favorite_list = list.favorite_lists.new(user: current_user)
@@ -82,7 +69,6 @@ class ListsController < ApplicationController
     end
   end
 
-  # DELETE /lists/1/unfavorite
   def unfavorite
     list = List.publicly_accessible.find(params[:list_id])
     @favorite_list = list.favorite_lists.find_by(user: current_user)
@@ -96,12 +82,10 @@ class ListsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_list
       @list = current_user.lists.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
       params.require(:list).permit(:subject, :public_access)
     end
