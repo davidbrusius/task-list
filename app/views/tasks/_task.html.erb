@@ -1,4 +1,4 @@
-<li class="list-group-item task-<%= task.id %>">
+<li class="list-group-item task-<%= task.id %>" data-update-task="true" data-destroy-task="true">
   <% if task.list.owned_by?(current_user) %>
     <%= link_to task_path(task, task: { done: !task.done }), method: :put,
                 remote: true, class: 'task-toggle-done' do %>

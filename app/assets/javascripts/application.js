@@ -22,9 +22,22 @@ $(document).on('page:change', function () {
 });
 
 $(document).ajaxError(function () {
-  $('.ajax-error').show('slow');
+  $('.ajax-error').show('slow').delay(2000).hide('slow');
 });
 
 $(document).ajaxSuccess(function () {
   $('.ajax-error').hide();
+});
+
+// Setup Ajax Resources
+$(document).on('page:change', function () {
+  $('.favorite-list').each(function() {
+    var favorite = new FavoriteList(this);
+    favorite.bindEvents();
+  });
+
+  $('.list-items').each(function() {
+    var task = new Task(this);
+    task.bindEvents();
+  });
 });

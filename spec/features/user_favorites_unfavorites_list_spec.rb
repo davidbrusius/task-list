@@ -7,7 +7,7 @@ feature 'Users favorite and unfavorite a list' do
     list = create(:public_list)
 
     visit scoped_lists_path(list_scope: 'public')
-    find("a[data-title='Favorite List']").click
+    click_link 'Favorite List'
 
     expect(page).to have_selector(:icon, 'star')
     expect(page).to have_link('', href: list_unfavorite_path(list_id: list.id))
@@ -19,7 +19,7 @@ feature 'Users favorite and unfavorite a list' do
     favorite_list = create(:favorite_list, user: user, list: create(:public_list))
 
     visit scoped_lists_path(list_scope: 'public')
-    find("a[data-title='Unfavorite List']").click
+    click_link 'Unfavorite List'
 
     expect(page).to have_selector(:icon, 'star')
     expect(page).to have_link('', href: list_favorite_path(list_id: favorite_list.list_id))

@@ -54,13 +54,17 @@ class ListsController < ApplicationController
     list = List.publicly_accessible.find(params[:list_id])
     @favorite_list = list.favorite_lists.new(user: current_user)
 
-    respond_to do |format|
-      if @favorite_list.save
-        format.html { redirect_to lists_url(list_scope: 'public'), notice: 'List was successfully favorited.' }
-        format.js   { render template: 'lists/toggle_favorite.js.erb' }
+    if @favorite_list.save
+      if request.xhr?
+        render partial: 'lists/favorite_list', locals: { list: list }, status: :created
       else
-        format.html { redirect_to lists_url(list_scope: 'public') }
-        format.js   { render status: 500, nothing: true }
+        redirect_to lists_url(list_scope: 'public'), notice: 'List was successfully favorited.'
+      end
+    else
+      if request.xhr?
+        render nothing: true, status: :unprocessable_entity
+      else
+        redirect_to lists_url(list_scope: 'public')
       end
     end
   end
@@ -68,11 +72,12 @@ class ListsController < ApplicationController
   def unfavorite
     list = List.publicly_accessible.find(params[:list_id])
     @favorite_list = list.favorite_lists.find_by(user: current_user)
-
     @favorite_list.destroy
-    respond_to do |format|
-      format.html { redirect_to lists_url, notice: 'List was successfully unfavorited.' }
-      format.js   { render template: 'lists/toggle_favorite.js.erb' }
+
+    if request.xhr?
+      render partial: 'lists/favorite_list', locals: { list: list }, status: :created
+    else
+      redirect_to lists_url, notice: 'List was successfully unfavorited.'
     end
   end
 

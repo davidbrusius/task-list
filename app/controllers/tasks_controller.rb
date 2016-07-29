@@ -20,38 +20,44 @@ class TasksController < ApplicationController
     list  = current_user.lists.find(task_params[:list_id])
     @task = list.tasks.new(task_params)
 
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
-        format.js   { }
+    if @task.save
+      if request.xhr?
+        render @task, status: :created
       else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-        format.js   { render status: 500, nothing: true }
+        redirect_to @task, notice: 'Task was successfully created.'
+      end
+    else
+      if request.xhr?
+        render nothing: true, status: :unprocessable_entity
+      else
+        render :new
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to lists_url, notice: 'Task was successfully updated.' }
-        format.json { render :show, status: :ok, location: @task }
-        format.js   { }
+    if @task.update(task_params)
+      if request.xhr?
+        render @task, status: :ok
       else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        redirect_to lists_url, notice: 'Task was successfully updated.'
+      end
+    else
+      if request.xhr?
+        render nothing: true, status: :unprocessable_entity
+      else
+        render :edit
       end
     end
   end
 
   def destroy
     @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
-      format.json { head :no_content }
-      format.js   { }
+
+    if request.xhr?
+      head :no_content, status: :ok
+    else
+      redirect_to tasks_url, notice: 'Task was successfully destroyed.'
     end
   end
 
