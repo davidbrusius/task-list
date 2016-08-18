@@ -1,6 +1,10 @@
 FactoryGirl.define do
   factory :task do
-    list { create(:list) }
-    description Faker::Lorem.word
+    list
+    description Faker::Lorem.words(3).join(' ')
+
+    factory :task_done do
+      done true
+    end
   end
 end

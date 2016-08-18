@@ -1,4 +1,4 @@
-<li class="list-group-item task-<%= task.id %>">
+<li class="list-group-item task-<%= task.id %>" data-update-task="true" data-destroy-task="true">
   <% if task.list.owned_by?(current_user) %>
     <%= link_to task_path(task, task: { done: !task.done }), method: :put,
                 remote: true, class: 'task-toggle-done' do %>
@@ -15,7 +15,7 @@
         <i class="glyphicon glyphicon-pencil"></i>
       <% end %>
       <%= link_to task, method: :delete, remote: true, data: { confirm: 'Are you sure?',
-                  title: 'Delete', toggle: 'tooltip', placement: 'bottom' } do %>
+                  title: 'Delete Task', toggle: 'tooltip', placement: 'bottom' } do %>
         <i class="glyphicon glyphicon-trash text-danger"></i>
       <% end %>
     </div>

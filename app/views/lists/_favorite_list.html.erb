@@ -1,11 +1,17 @@
 <% if list.favorited_by?(current_user) %>
-  <%= link_to list_unfavorite_path(list), method: :delete, remote: true, data: {
-              title: 'Unfavorite', toggle: 'tooltip', placement: 'bottom' } do %>
+  <%= link_to list_unfavorite_path(list),
+              method: :delete,
+              remote: true,
+              title: 'Unfavorite List',
+              data: { 'destroy-favorite': true } do %>
     <i class="glyphicon glyphicon-star"></i>
   <% end %>
 <% else %>
-  <%= link_to list_favorite_path(list), method: :post, remote: true, data: {
-              title: 'Favorite', toggle: 'tooltip', placement: 'bottom' } do %>
+  <%= link_to list_favorite_path(list),
+              method: :post,
+              remote: true,
+              title: 'Favorite List',
+              data: { 'create-favorite': true } do %>
     <i class="glyphicon glyphicon-star-empty"></i>
   <% end %>
 <% end %>
