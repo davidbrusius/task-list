@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class List < ActiveRecord::Base
   belongs_to :user
   has_many :tasks
@@ -20,9 +22,10 @@ class List < ActiveRecord::Base
   end
 
   private
-  def destroy_favorite_lists
-    if public_access_changed? && !public_access?
-      favorite_lists.destroy_all
+
+    def destroy_favorite_lists
+      if public_access_changed? && !public_access?
+        favorite_lists.destroy_all
+      end
     end
-  end
 end
