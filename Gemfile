@@ -7,7 +7,7 @@ gem 'pg', '~> 0.15'
 
 # UI / Assets
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.3.7'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'simple_form'
