@@ -3,6 +3,7 @@
 module ApplicationHelper
   def bootstrap_class_for(flash_type)
     bootstrap_alert_classes = {
+      fingerprint:  "alert-danger",
       success:  "alert-success",
       error:    "alert-danger",
       alert:    "alert-warning",
