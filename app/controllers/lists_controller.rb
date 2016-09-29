@@ -89,22 +89,23 @@ class ListsController < ApplicationController
 
   private
 
-  def set_list
-    @list = current_user.lists.find(params[:id])
-  end
-
-  def list_params
-    params.require(:list).permit(:subject, :public_access)
-  end
-
-  def scoped_lists
-    case params[:list_scope]
-    when 'public'
-      List.publicly_accessible.where.not(user: current_user)
-    when 'favorited'
-      current_user.favorited_lists
-    else
-      current_user.lists
+    def set_list
+      @list = current_user.lists.find(params[:id])
     end
-  end
+
+    def list_params
+      params.require(:list).permit(:subject, :public_access)
+    end
+
+    def scoped_lists
+      scope = params[:list_scope]
+      case scope
+      when 'public'
+        List.publicly_accessible.where.not(user: current_user)
+      when 'favorited'
+        current_user.favorited_lists
+      else
+        current_user.lists
+      end
+    end
 end
