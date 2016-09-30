@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ListsController < ApplicationController
   before_action :set_list, only: [:show, :edit, :update, :destroy]
 
@@ -21,11 +23,11 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
-        format.html { redirect_to lists_path, notice: 'List was successfully created. You can now add tasks to this list.' }
-        format.json { render :show, status: :created, location: @list }
+        format.html {redirect_to lists_path, notice: 'List was successfully created. You can now add tasks to this list.' }
+        format.json {render :show, status: :created, location: @list }
       else
         format.html { render :new }
-        format.json {render json: @list.errors, status: :unprocessable_entity }
+        format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
   end

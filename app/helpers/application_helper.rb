@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def bootstrap_class_for(flash_type)
     bootstrap_alert_classes = {
