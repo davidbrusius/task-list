@@ -1,10 +1,10 @@
 # Task List #
 
-### About
+## About ##
 
 `Task List` provides tools to manage your tasks.
 
-### Features
+## Features ##
 
 * Organize your Tasks in Lists
 * Mark Tasks as done
@@ -12,29 +12,29 @@
 * Share your public Lists with other users
 * Favorite public Lists from other users
 
-### Dependencies
+## Dependencies ##
 
 * Ruby 2.3.1
 * Rails 4.2.6
 * Postgresql 9.4.5
 
-### Local Host
+## Local Host ##
 
-    127.0.0.1         local.task-list.com
+  127.0.0.1         local.task-list.com
 
-## Setup
+## Setup ##
 
-    bin/setup
+  bin/setup
 
-## Run app
+## Run app ##
 
-    rails s
-    open http://local.task-list.com:3000
+  rails s
+  open http://local.task-list.com:3000
 
-## Run tests
+## Run tests ##
 
     rspec
 
-## Contact
+## Contact ##
 
 * David Brusius - brusiusdavid@yahoo.com.br
