@@ -14,7 +14,7 @@
 
 ### Dependencies
 
-* Ruby 2.3.1
+* Ruby 2.6.5
 * Rails 4.2.6
 * Postgresql 9.4.5
 
